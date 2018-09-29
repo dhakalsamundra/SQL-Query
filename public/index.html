@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/mannual-style.css">
+  <title>Home - MySQL Query Processor</title>
+</head>
+
+<body class="bg-dark text-light text-center" id="body-index-login">
+
+  <div class="border border-light rounded" style="padding: 1rem;">
+    <p class="display-1">Welcome!!</p>
+  </div>
+
+  <br>
+  <span class="display-4">Online MySQL Query Processor</span>
+  <br><br>
+
+  <form action="/login" method="GET">
+    <button type="submit" class="btn btn-outline-light btn-lg" id="go">
+      <span class="display-4">Go</span>
+    </button>
+  </form>
+
+  <script src="./assets/scripts/jquery.min.js"></script>
+  <script>
+    $("#go").blur();    
+    $(document).keydown(function(e) {
+      if(e.keyCode == 13) {
+        $("#go").click();
+      }
+    });
+  </script>
+  
+</body>
+</html>

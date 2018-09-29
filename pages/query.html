@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/mannual-style.css">
+  <title>Query - MySQL Query Processor</title>
+</head>
+
+<body class="bg-dark text-light text-center" id="body-query">
+  <p class="display-3" >Run MySQL Query</p>
+
+  <div style="width: 90% !important;">
+    <div class="btn-container">
+      <button id="logout" class="btn btn-primary btn-lg" style="align-self: flex-end;">Logout</button>
+    </div>
+
+    <form action="/query" method="POST" id="query-form">
+      <div class="form-group">
+        <p class="lead text-left">Your query goes here...</p>
+
+        <textarea class="form-control text-monospace" id="query-string" rows="4" name="query-string" placeholder="type your SQL query" required autofocus></textarea>
+
+        <div class="btn-container">
+          <button class="btn btn-danger btn-lg" id="clear">Clear</button>
+          <button type="submit" class="btn btn-success btn-lg" id="submit" style="margin-left: 0.5rem;">Execute</button>
+        </div>
+
+        <p class="lead text-left">Execute by <kbd>Shift + Enter</kbd></p>
+        <p class="lead text-left">Clear input by <kbd>Ctrl + Shift + Enter</kbd></p>
+
+        <p class="lead text-left">Your output goes here...<p>
+          
+        <div class="form-control table-responsive-lg text-monospace" id="output"></div>
+      </div>
+    </form>
+  </div>
+
+  <script src="./assets/scripts/jquery.min.js"></script>
+  <script src="./assets/scripts/script.js"></script>
+  <script>
+    $("document").ready(function() {
+      $("#logout").click(function(e) {
+        this.blur();
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: '/logout',
+          success: function(response) {
+            window.location = response.redirectTo;
+          }
+        });
+      });
+
+      $("#submit").click(function(e) {
+        this.blur();
+        e.preventDefault();
+        executeQuery();
+      });
+
+      $("#clear").click(function(e) {
+        this.blur();
+        e.preventDefault();
+        $("#query-string").val('').focus();
+      });
+
+      $(document).keydown(function(e) {
+        if(e.keyCode == 13 && e.shiftKey && e.ctrlKey) {
+          $("#clear").click();
+          return false;
+        } else if(e.keyCode == 13 && e.shiftKey) {
+          $("#submit").click();
+          return false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

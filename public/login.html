@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/mannual-style.css">
+  <title>Login - MySQL Query Processor</title>
+</head>
+
+<body class="bg-dark text-light text-center" id="body-index-login">
+
+  <div style="width: 90% !important;">
+    <p class="display-4">Enter database password to continue...</p>
+
+    <form action="/login" method="POST" id="login">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="password" class="form-control-lg" id="password" name="password" placeholder="Database Password" style="width: 50% !important" required autofocus>
+      </div>
+      <button type="submit" id="submit" class="btn btn-outline-light btn-lg mb-2">Login</button>
+    </form>
+  </div>
+
+  <script src="./assets/scripts/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $("document").ready(function() {
+      $("#login").submit(function(e) {
+        this.blur();
+        e.preventDefault();
+        $.ajax({
+          method: 'POST',
+          url: '/login',
+          data: { password: $("#password").val() },
+          success: function(response) {
+            if(response.redirectTo) {
+              window.location = response.redirectTo;
+            } else {
+              alert(response);
+              $("#password").val("");
+              $("#password").focus();
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
+
